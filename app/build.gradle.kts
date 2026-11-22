@@ -5,12 +5,13 @@ plugins {
 
 android {
     namespace = "com.example.myapplication"
+
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.example.myapplication"
+        applicationId = "com.roquigames.app"
         minSdk = 26
         targetSdk = 37
         versionCode = 1
