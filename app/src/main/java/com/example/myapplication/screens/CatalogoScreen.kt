@@ -15,10 +15,17 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.getValue
 
 data class JuegoCatalogo(
     val titulo: String,
@@ -45,6 +53,12 @@ private val juegosCatalogo = listOf(
 
 @Composable
 fun CatalogoScreen(modifier: Modifier = Modifier) {
+
+    var busqueda by remember { mutableStateOf("") }
+
+    val juegosFiltrados = juegosCatalogo.filter {
+        it.titulo.contains(busqueda, ignoreCase = true)
+    }
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = modifier.fillMaxSize(),
@@ -61,11 +75,21 @@ fun CatalogoScreen(modifier: Modifier = Modifier) {
                     style = MaterialTheme.typography.headlineLarge,
                     fontWeight = FontWeight.Bold
                 )
+                Spacer(modifier = Modifier.height(16.dp))
+                OutlinedTextField(
+                    value = busqueda,
+                    onValueChange = { busqueda = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    placeholder = { Text("Busca tu próximo clásico…") },
+                    leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Buscar") },
+                    singleLine = true,
+                    shape = RoundedCornerShape(16.dp)
+                )
                 Spacer(modifier = Modifier.height(8.dp))
             }
         }
 
-        items(juegosCatalogo) { juego ->
+        items(juegosFiltrados) { juego ->
             TarjetaCatalogo(juego)
         }
     }
