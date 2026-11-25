@@ -23,6 +23,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,6 +44,7 @@ fun LoginScreen(
     viewModel: LoginViewModel = viewModel()
 ) {
     var verPassword by remember { mutableStateOf(false) }
+    val uiState by viewModel.uiState.collectAsState()
 
     Column(
         modifier = modifier
@@ -74,7 +76,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         OutlinedTextField(
-            value = viewModel.email,
+            value = uiState.email,
             onValueChange = { viewModel.cambiarEmail(it) },
             label = { Text("Correo electronico") },
             trailingIcon = { Icon(Icons.Filled.Email, contentDescription = null) },
@@ -87,7 +89,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(12.dp))
 
         OutlinedTextField(
-            value = viewModel.password,
+            value = uiState.password,
             onValueChange = { viewModel.cambiarPassword(it) },
             label = { Text("Contraseña") },
             visualTransformation = if (verPassword) VisualTransformation.None else PasswordVisualTransformation(),
@@ -102,7 +104,7 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        viewModel.error?.let { mensaje ->
+        uiState.error?.let { mensaje ->
             Spacer(modifier = Modifier.height(8.dp))
             Text(mensaje, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
         }
@@ -111,20 +113,20 @@ fun LoginScreen(
 
         Button(
             onClick = { viewModel.iniciarSesion() },
-            enabled = !viewModel.cargando,
+            enabled = !uiState.cargando,
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(52.dp)
         ) {
-            if (viewModel.cargando) {
+            if (uiState.cargando) {
                 CircularProgressIndicator(modifier = Modifier.size(22.dp), strokeWidth = 2.dp)
             } else {
                 Text("Iniciar sesión", fontWeight = FontWeight.Bold)
             }
         }
 
-        viewModel.usuario?.let { usuario ->
+        uiState.usuario?.let { usuario ->
             Spacer(modifier = Modifier.height(16.dp))
             Text("¡Hola, ${usuario.nick}! Rol: ${usuario.rol}", color = MaterialTheme.colorScheme.primary)
         }

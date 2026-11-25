@@ -27,6 +27,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
+import com.example.myapplication.Components.CarruselJuegos
+import com.example.myapplication.Components.JuegoDestacado
+import com.example.myapplication.Components.TarjetaJuego
+import com.example.myapplication.data.model.Juego
 
 @Composable
 fun InicioScreen(modifier: Modifier = Modifier) {
@@ -68,14 +72,11 @@ fun InicioScreen(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text("Recién llegados", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
-            Text("Ver catálogo →", style = MaterialTheme.typography.labelLarge, color = Color(0xFFC6F432))
-        }
+        CarruselJuegos(
+            titulo = "Recién llegados",
+            juegos = recienLlegados,
+            textoEnlace = "Ver catálogo →"
+        )
 
         Spacer(modifier = Modifier.height(12.dp))
 
@@ -87,116 +88,11 @@ fun InicioScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Composable
-private fun JuegoDestacado(
-    titulo: String,
-    plataforma: String,
-    anio: Int,
-    precioCompra: String,
-    precioAlquiler: String
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(220.dp),
-        shape = RoundedCornerShape(24.dp)
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xFF2B3A55)) // hueco para la imagen
-                .padding(20.dp)
-        ) {
-            // Etiqueta arriba a la izquierda
-            Text(
-                text = "SELECCION ROQUI",
-                style = MaterialTheme.typography.labelMedium,
-                fontWeight = FontWeight.Bold,
-                color = Color(0xFFC6F432),
-                modifier = Modifier.align(Alignment.TopStart)
-            )
 
-            // Datos abajo a la izquierda
-            Column(modifier = Modifier.align(Alignment.BottomStart)) {
-                Text(
-                    text = titulo.uppercase(),
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
-                )
-                Text(
-                    text = "$plataforma / $anio".uppercase(),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = Color.White.copy(alpha = 0.8f)
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-                Text(
-                    text = "$precioCompra · Alquila por $precioAlquiler",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFFC6F432)
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun TarjetaJuego(juego: JuegoResumen) {
-    Card(
-        modifier = Modifier.width(160.dp),
-        shape = RoundedCornerShape(16.dp)
-    ) {
-        Column(modifier = Modifier.padding(10.dp)) {
-            // Hueco de la imagen, con la plataforma encima
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(110.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0xFF2B3A55))
-                    .padding(8.dp)
-            ) {
-                Text(
-                    text = juego.plataforma.uppercase(),
-                    style = MaterialTheme.typography.labelSmall,
-                    color = Color.White,
-                    maxLines = 1
-                )
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = juego.titulo,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold,
-                minLines = 2,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-
-            Spacer(modifier = Modifier.height(6.dp))
-
-            Text(
-                text = juego.precioCompra,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = Color(0xFFC6F432)
-            )
-        }
-    }
-}
-
-data class JuegoResumen(
-    val titulo: String,
-    val plataforma: String,
-    val precioCompra: String
-)
 
 private val recienLlegados = listOf(
-    JuegoResumen("Pokémon Esmeralda", "Game Boy Advance", "45,00 €"),
-    JuegoResumen("DOOM", "PC", "15,00 €"),
-    JuegoResumen("Sonic the Hedgehog", "Sega Mega Drive", "18,00 €"),
-    JuegoResumen("GTA: San Andreas", "PlayStation 2", "20,00 €")
+    Juego("Pokémon Esmeralda", "Game Boy Advance", "45,00 €", "8,00 €"),
+    Juego("DOOM", "PC", "15,00 €", null),
+    Juego("Sonic the Hedgehog", "Sega Mega Drive", "18,00 €", "3,00 €"),
+    Juego("GTA: San Andreas", "PlayStation 2", "20,00 €", "4,00 €")
 )

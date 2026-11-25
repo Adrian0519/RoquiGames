@@ -1,65 +1,53 @@
 package com.example.myapplication.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.Sesion
-import com.example.myapplication.data.model.LoginRespuestaDTO
 import com.example.myapplication.data.repository.UsuariosRepository
+import com.example.myapplication.viewmodel.uistate.LoginUIState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
     private val repository = UsuariosRepository()
 
-    var email by mutableStateOf("")
-        private set
+    // Estado de la pantalla: privado y modificable dentro del ViewModel…
+    private val _uiState = MutableStateFlow(LoginUIState())
 
-    var password by mutableStateOf("")
-        private set
-
-    var cargando by mutableStateOf(false)
-        private set
-
-    var error by mutableStateOf<String?>(null)
-        private set
-
-    var usuario by mutableStateOf<LoginRespuestaDTO?>(null)
-        private set
-
+    // …y público, pero solo de lectura, para la pantalla
+    val uiState: StateFlow<LoginUIState> = _uiState.asStateFlow()
 
     fun cambiarEmail(nuevo: String) {
-        email = nuevo
-        error = null
+        _uiState.update { it.copy(email = nuevo, error = null) }
     }
 
     fun cambiarPassword(nueva: String) {
-        password = nueva
-        error = null
+        _uiState.update { it.copy(password = nueva, error = null) }
     }
 
     fun iniciarSesion() {
-        if (email.isBlank() || password.isBlank()) {
-            error = "Introduce el correo y la contraseña"
+        val estado = _uiState.value
+
+        if (estado.email.isBlank() || estado.password.isBlank()) {
+            _uiState.update { it.copy(error = "Introduce el correo y la contraseña") }
             return
         }
 
         viewModelScope.launch {
-            cargando = true
-            error = null
+            _uiState.update { it.copy(cargando = true, error = null) }
 
-            val resultado = repository.login(email.trim(), password)
-
-            resultado
-                .onSuccess {
-                    usuario = it
-                    Sesion.iniciar(it)
+            repository.login(estado.email.trim(), estado.password)
+                .onSuccess { usuario ->
+                    Sesion.iniciar(usuario)
+                    _uiState.update { it.copy(cargando = false, usuario = usuario) }
                 }
-                .onFailure { error = it.message }
-
-            cargando = false
+                .onFailure { e ->
+                    _uiState.update { it.copy(cargando = false, error = e.message) }
+                }
         }
     }
 }

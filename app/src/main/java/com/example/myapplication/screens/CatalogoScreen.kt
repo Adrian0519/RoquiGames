@@ -34,21 +34,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.getValue
+import com.example.myapplication.components.BarraBusqueda
+import com.example.myapplication.data.model.Juego
 
-data class JuegoCatalogo(
-    val titulo: String,
-    val plataforma: String,
-    val precioCompra: String,
-    val precioAlquiler: String?   // null = no se alquila
-)
 
 private val juegosCatalogo = listOf(
-    JuegoCatalogo("Super Mario Bros.", "NES", "25,00 €", "5,00 €"),
-    JuegoCatalogo("Zelda: A Link to the Past", "Super Nintendo", "35,00 €", "7,00 €"),
-    JuegoCatalogo("GTA: San Andreas", "PlayStation 2", "20,00 €", "4,00 €"),
-    JuegoCatalogo("Sonic the Hedgehog", "Sega Mega Drive", "18,00 €", "3,00 €"),
-    JuegoCatalogo("DOOM", "PC", "15,00 €", null),
-    JuegoCatalogo("Pokémon Esmeralda", "Game Boy Advance", "45,00 €", "8,00 €")
+    Juego("Super Mario Bros.", "NES", "25,00 €", "5,00 €"),
+    Juego("Zelda: A Link to the Past", "Super Nintendo", "35,00 €", "7,00 €"),
+    Juego("GTA: San Andreas", "PlayStation 2", "20,00 €", "4,00 €"),
+    Juego("Sonic the Hedgehog", "Sega Mega Drive", "18,00 €", "3,00 €"),
+    Juego("DOOM", "PC", "15,00 €", null),
+    Juego("Pokémon Esmeralda", "Game Boy Advance", "45,00 €", "8,00 €")
 )
 
 @Composable
@@ -76,14 +72,9 @@ fun CatalogoScreen(modifier: Modifier = Modifier) {
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                OutlinedTextField(
-                    value = busqueda,
-                    onValueChange = { busqueda = it },
-                    modifier = Modifier.fillMaxWidth(),
-                    placeholder = { Text("Busca tu próximo clásico…") },
-                    leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Buscar") },
-                    singleLine = true,
-                    shape = RoundedCornerShape(16.dp)
+                BarraBusqueda(
+                    texto = busqueda,
+                    onTextoChange = { busqueda = it }
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
@@ -96,7 +87,7 @@ fun CatalogoScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun TarjetaCatalogo(juego: JuegoCatalogo) {
+private fun TarjetaCatalogo(juego: Juego) {
     Card(shape = RoundedCornerShape(16.dp)) {
         Column(modifier = Modifier.padding(10.dp)) {
             // Hueco de la imagen
