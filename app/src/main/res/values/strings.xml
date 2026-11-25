@@ -1,3 +1,59 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">RoquiGames</string>
+
+    <!-- Comunes -->
+
+    <string name="logo_roqui">Roqui</string>
+    <string name="logo_games">GAMES</string>
+
+    <!-- Barra inferior -->
+
+    <string name="nav_inicio">Inicio</string>
+    <string name="nav_catalogo">Catálogo</string>
+    <string name="nav_carrito">Carrito</string>
+    <string name="nav_perfil">Perfil</string>
+
+    <!-- Inicio -->
+
+    <string name="inicio_subtitulo">Tu tienda especializada en retro</string>
+    <string name="inicio_titulo">Vuelve a darle al play.</string>
+    <string name="inicio_recien_llegados">Recién llegados</string>
+    <string name="inicio_ver_catalogo">Ver catálogo →</string>
+
+    <!-- Juego destacado y tarjetas -->
+
+    <string name="destacado_etiqueta">SELECCIÓN ROQUI</string>
+    <string name="destacado_precios">%1$s · Alquila por %2$s</string>
+    <string name="tarjeta_compra">COMPRA</string>
+    <string name="tarjeta_alquiler_dia">Alquila %1$s / día</string>
+    <string name="tarjeta_solo_compra">Solo compra</string>
+
+    <!-- Catálogo -->
+
+    <string name="catalogo_titulo">Catálogo</string>
+    <string name="catalogo_subtitulo">Elige tu próxima partida.</string>
+    <string name="buscar_placeholder">Busca tu próximo clásico…</string>
+    <string name="buscar">Buscar</string>
+
+    <!-- Login -->
+
+    <string name="login_bienvenida">BIENVENIDO DE VUELTA</string>
+    <string name="login_titulo">Tu partida continúa.</string>
+    <string name="login_subtitulo">Entra para comprar, alquilar y compartir tus clásicos favoritos.</string>
+    <string name="login_email">Correo electrónico</string>
+    <string name="login_password">Contraseña</string>
+    <string name="login_ver">Ver</string>
+    <string name="login_ocultar">Ocultar</string>
+    <string name="login_boton">Iniciar sesión</string>
+
+    <!-- Perfil -->
+
+    <string name="perfil_titulo">Perfil</string>
+    <string name="perfil_hola">Hola, %1$s</string>
+    <string name="perfil_rol">Rol: %1$s</string>
+    <string name="perfil_cerrar_sesion">Cerrar sesión</string>
+
+    <!-- Carrito -->
+
+    <string name="carrito_titulo">Carrito</string>
 </resources>

@@ -38,6 +38,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.viewmodel.LoginViewModel
 
+
+//TODO: cambiar los text a string resources
+
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
@@ -53,7 +56,7 @@ fun LoginScreen(
             .padding(20.dp)
     ) {
         Row(verticalAlignment = Alignment.Bottom) {
-            Text("roqui", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+            Text("Roqui", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.width(6.dp))
             Text(
                 "GAMES",

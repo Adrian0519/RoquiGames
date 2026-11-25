@@ -1,4 +1,4 @@
-package com.example.myapplication.Components
+package com.example.myapplication.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

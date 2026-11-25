@@ -14,6 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.data.Sesion
 
+//TODO: cambiar los text a string resources
+
 @Composable
 fun PerfilScreen(modifier: Modifier = Modifier) {
     val usuario = Sesion.usuario

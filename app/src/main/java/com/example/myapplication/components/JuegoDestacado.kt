@@ -1,4 +1,4 @@
-package com.example.myapplication.Components
+package com.example.myapplication.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
+import com.example.myapplication.R
 
 @Composable
 fun JuegoDestacado(
@@ -40,7 +42,7 @@ fun JuegoDestacado(
                 .padding(20.dp)
         ) {
             Text(
-                text = "SELECCION ROQUI",
+                text = stringResource(R.string.destacado_etiqueta),
                 style = MaterialTheme.typography.labelMedium,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFFC6F432),
@@ -60,7 +62,7 @@ fun JuegoDestacado(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
-                    text = "$precioCompra · Alquila por $precioAlquiler",
+                    text = stringResource(R.string.destacado_precios, precioCompra, precioAlquiler),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFFC6F432)

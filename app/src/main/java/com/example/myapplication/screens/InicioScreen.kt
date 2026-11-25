@@ -1,36 +1,27 @@
 package com.example.myapplication.screens
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.lazy.items
-import com.example.myapplication.Components.CarruselJuegos
-import com.example.myapplication.Components.JuegoDestacado
-import com.example.myapplication.Components.TarjetaJuego
+import com.example.myapplication.components.JuegoDestacado
 import com.example.myapplication.data.model.Juego
+import androidx.compose.ui.res.stringResource
+import com.example.myapplication.R
+import com.example.myapplication.components.CarruselJuegos
+import com.example.myapplication.components.LogoRoqui
 
 @Composable
 fun InicioScreen(modifier: Modifier = Modifier) {
@@ -42,20 +33,14 @@ fun InicioScreen(modifier: Modifier = Modifier) {
     ) {
 
         Row(verticalAlignment = Alignment.Bottom) {
-            Text(
-                "roqui",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.width(6.dp))
-            Text("GAMES", style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold)
+            LogoRoqui()
         }
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Text("Tu tienda especializada en retro", style = MaterialTheme.typography.bodyLarge)
+        Text(stringResource(R.string.inicio_subtitulo), style = MaterialTheme.typography.bodyLarge)
         Text(
-            "Vuelve a darle al play.",
+            stringResource(R.string.inicio_titulo),
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold
         )
@@ -73,22 +58,12 @@ fun InicioScreen(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(32.dp))
 
         CarruselJuegos(
-            titulo = "Recién llegados",
+            titulo = stringResource(R.string.inicio_recien_llegados),
             juegos = recienLlegados,
-            textoEnlace = "Ver catálogo →"
+            textoEnlace = stringResource(R.string.inicio_ver_catalogo)
         )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            items(recienLlegados) { juego ->
-                TarjetaJuego(juego)
-            }
-        }
     }
 }
-
-
 
 private val recienLlegados = listOf(
     Juego("Pokémon Esmeralda", "Game Boy Advance", "45,00 €", "8,00 €"),
