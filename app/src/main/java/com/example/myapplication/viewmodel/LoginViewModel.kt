@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.data.Sesion
 import com.example.myapplication.data.model.LoginRespuestaDTO
 import com.example.myapplication.data.repository.UsuariosRepository
 import kotlinx.coroutines.launch
@@ -28,7 +29,7 @@ class LoginViewModel : ViewModel() {
     var usuario by mutableStateOf<LoginRespuestaDTO?>(null)
         private set
 
-    // ---- Acciones que llama la pantalla ----
+
     fun cambiarEmail(nuevo: String) {
         email = nuevo
         error = null
@@ -52,7 +53,10 @@ class LoginViewModel : ViewModel() {
             val resultado = repository.login(email.trim(), password)
 
             resultado
-                .onSuccess { usuario = it }
+                .onSuccess {
+                    usuario = it
+                    Sesion.iniciar(it)
+                }
                 .onFailure { error = it.message }
 
             cargando = false

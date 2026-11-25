@@ -15,23 +15,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.myapplication.screens.CarritoScreen
-import com.example.myapplication.screens.CatalogoScreen
-import com.example.myapplication.screens.InicioScreen
-import com.example.myapplication.screens.LoginScreen
-import com.example.myapplication.screens.PerfilScreen
 
 data class Pestana(val ruta: String, val titulo: String, val icono: ImageVector)
 
 val pestanas = listOf(
-    Pestana("inicio", "Inicio", Icons.Filled.Home),
-    Pestana("catalogo", "Catálogo", Icons.AutoMirrored.Filled.List),
-    Pestana("carrito", "Carrito", Icons.Filled.ShoppingCart),
-    Pestana("perfil", "Perfil", Icons.Filled.Person)
+    Pestana(Routes.INICIO, "Inicio", Icons.Filled.Home),
+    Pestana(Routes.CATALOGO, "Catálogo", Icons.AutoMirrored.Filled.List),
+    Pestana(Routes.CARRITO, "Carrito", Icons.Filled.ShoppingCart),
+    Pestana(Routes.PERFIL, "Perfil", Icons.Filled.Person)
 )
 
 @Composable
@@ -58,16 +51,10 @@ fun NavegacionPrincipal() {
                 }
             }
         }
-    ) { innerPadding ->
-        NavHost(
+    )     { innerPadding ->
+        AppNavGraph(
             navController = navController,
-            startDestination = "inicio",
             modifier = Modifier.padding(innerPadding)
-        ) {
-            composable("inicio") { InicioScreen() }
-            composable("catalogo") { CatalogoScreen() }
-            composable("carrito") { CarritoScreen() }
-            composable("perfil") { LoginScreen() }
-        }
+        )
     }
 }
