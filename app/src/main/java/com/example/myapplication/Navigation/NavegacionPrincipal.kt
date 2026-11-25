@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.screens.CarritoScreen
 import com.example.myapplication.screens.CatalogoScreen
 import com.example.myapplication.screens.InicioScreen
+import com.example.myapplication.screens.LoginScreen
 import com.example.myapplication.screens.PerfilScreen
 
 data class Pestana(val ruta: String, val titulo: String, val icono: ImageVector)
@@ -66,7 +67,7 @@ fun NavegacionPrincipal() {
             composable("inicio") { InicioScreen() }
             composable("catalogo") { CatalogoScreen() }
             composable("carrito") { CarritoScreen() }
-            composable("perfil") { PerfilScreen() }
+            composable("perfil") { LoginScreen() }
         }
     }
 }
