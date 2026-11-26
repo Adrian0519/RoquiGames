@@ -1,5 +1,6 @@
 package com.example.myapplication.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,12 +31,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.myapplication.R
+import com.example.myapplication.components.MensajeError
 import com.example.myapplication.viewmodel.LoginViewModel
 
 
@@ -44,8 +48,9 @@ import com.example.myapplication.viewmodel.LoginViewModel
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    viewModel: LoginViewModel = viewModel()
-) {
+    viewModel: LoginViewModel = viewModel(),
+    onIrARegistro: () -> Unit = {}
+)  {
     var verPassword by remember { mutableStateOf(false) }
     val uiState by viewModel.uiState.collectAsState()
 
@@ -107,10 +112,8 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
-        uiState.error?.let { mensaje ->
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(mensaje, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall)
-        }
+        Spacer(modifier = Modifier.height(8.dp))
+        MensajeError(error = uiState.error, errorRes = uiState.errorRes)
 
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -126,6 +129,19 @@ fun LoginScreen(
                 CircularProgressIndicator(modifier = Modifier.size(22.dp), strokeWidth = 2.dp)
             } else {
                 Text("Iniciar sesión", fontWeight = FontWeight.Bold)
+            }
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(stringResource(R.string.login_sin_cuenta), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            TextButton(onClick = onIrARegistro) {
+                Text(stringResource(R.string.login_crear_cuenta), fontWeight = FontWeight.Bold)
             }
         }
 

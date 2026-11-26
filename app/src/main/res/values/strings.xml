@@ -56,4 +56,35 @@
     <!-- Carrito -->
 
     <string name="carrito_titulo">Carrito</string>
+
+    <!-- Errores generales -->
+
+    <string name="error_conexion">No se puede conectar con el servidor</string>
+    <string name="error_servidor">Error en el servidor, inténtalo más tarde</string>
+    <string name="error_generico">No se ha podido completar la operación</string>
+    <string name="login_error_credenciales">Correo o contraseña incorrectos</string>
+    <string name="login_error_vacios">Introduce el correo y la contraseña</string>
+
+    <!-- Errores del registro -->
+
+    <string name="registro_error_vacios">Rellena todos los campos</string>
+    <string name="registro_error_no_coinciden">Las contraseñas no coinciden</string>
+
+    <!-- Registro -->
+
+    <string name="registro_etiqueta">NUEVO JUGADOR</string>
+    <string name="registro_titulo">Empieza tu colección.</string>
+    <string name="registro_subtitulo">Una cuenta. Miles de recuerdos por jugar.</string>
+    <string name="registro_nick">Nick</string>
+    <string name="registro_nombre">Nombre</string>
+    <string name="registro_apellidos">Apellidos (opcional)</string>
+    <string name="registro_repetir_password">Confirmar contraseña</string>
+    <string name="registro_boton">Crear mi cuenta</string>
+    <string name="registro_ya_tienes_cuenta">¿Ya tienes cuenta?</string>
+    <string name="registro_inicia_sesion">Inicia sesión</string>
+
+    <!-- Enlace del login al registro -->
+
+    <string name="login_sin_cuenta">¿Tu primera partida?</string>
+    <string name="login_crear_cuenta">Crear una cuenta</string>
 </resources>

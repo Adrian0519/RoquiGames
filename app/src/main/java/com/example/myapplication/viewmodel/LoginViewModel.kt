@@ -2,6 +2,8 @@ package com.example.myapplication.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.R
+import com.example.myapplication.data.MensajeException
 import com.example.myapplication.data.Sesion
 import com.example.myapplication.data.repository.UsuariosRepository
 import com.example.myapplication.viewmodel.uistate.LoginUIState
@@ -15,30 +17,27 @@ class LoginViewModel : ViewModel() {
 
     private val repository = UsuariosRepository()
 
-    // Estado de la pantalla: privado y modificable dentro del ViewModel…
     private val _uiState = MutableStateFlow(LoginUIState())
-
-    // …y público, pero solo de lectura, para la pantalla
     val uiState: StateFlow<LoginUIState> = _uiState.asStateFlow()
 
     fun cambiarEmail(nuevo: String) {
-        _uiState.update { it.copy(email = nuevo, error = null) }
+        _uiState.update { it.copy(email = nuevo, error = null, errorRes = null) }
     }
 
     fun cambiarPassword(nueva: String) {
-        _uiState.update { it.copy(password = nueva, error = null) }
+        _uiState.update { it.copy(password = nueva, error = null, errorRes = null) }
     }
 
     fun iniciarSesion() {
         val estado = _uiState.value
 
         if (estado.email.isBlank() || estado.password.isBlank()) {
-            _uiState.update { it.copy(error = "Introduce el correo y la contraseña") }
+            _uiState.update { it.copy(errorRes = R.string.login_error_vacios) }
             return
         }
 
         viewModelScope.launch {
-            _uiState.update { it.copy(cargando = true, error = null) }
+            _uiState.update { it.copy(cargando = true, error = null, errorRes = null) }
 
             repository.login(estado.email.trim(), estado.password)
                 .onSuccess { usuario ->
@@ -46,7 +45,11 @@ class LoginViewModel : ViewModel() {
                     _uiState.update { it.copy(cargando = false, usuario = usuario) }
                 }
                 .onFailure { e ->
-                    _uiState.update { it.copy(cargando = false, error = e.message) }
+                    if (e is MensajeException) {
+                        _uiState.update { it.copy(cargando = false, errorRes = e.mensaje) }
+                    } else {
+                        _uiState.update { it.copy(cargando = false, error = e.message) }
+                    }
                 }
         }
     }

@@ -11,6 +11,7 @@ import com.example.myapplication.screens.CatalogoScreen
 import com.example.myapplication.screens.InicioScreen
 import com.example.myapplication.screens.LoginScreen
 import com.example.myapplication.screens.PerfilScreen
+import com.example.myapplication.screens.RegistroScreen
 
 @Composable
 fun AppNavGraph(
@@ -27,10 +28,19 @@ fun AppNavGraph(
         composable(Routes.CARRITO) { CarritoScreen() }
         composable(Routes.PERFIL) {
             if (Sesion.usuario == null) {
-                LoginScreen()
+                LoginScreen(
+                    onIrARegistro = { navController.navigate(Routes.REGISTRO) }
+                )
             } else {
                 PerfilScreen()
             }
+        }
+
+        composable(Routes.REGISTRO) {
+            RegistroScreen(
+                onIrALogin = { navController.popBackStack() },
+                onRegistrado = { navController.popBackStack() }
+            )
         }
     }
 }

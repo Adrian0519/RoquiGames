@@ -5,4 +5,5 @@ object Routes {
     const val CATALOGO = "catalogo"
     const val CARRITO = "carrito"
     const val PERFIL = "perfil"
+    const val REGISTRO = "registro"
 }
